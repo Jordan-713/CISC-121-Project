@@ -1,14 +1,14 @@
 import gradio as gr  # load gradio
 import random  # used for generating random numbers
 
-def bubble_sort_steps(nums_string):  # main bubble sort function
+def bubble_sort_steps(nums_string):  # bubble sort function
     try:
         arr = [int(x.strip()) for x in nums_string.split(",")]  # turn string into list of integers
     except:
         return "Error: enter numbers separated by commas."  # show if input is invalid
 
     steps = []  # list of lines to display
-    a = arr.copy()  # work on a copy of the list
+    a = arr.copy()  # [AI] work on a copy of the list
     n = len(a)  # get the size of the list
 
     steps.append(f"STARTING LIST: {a}<br><br>")  # show original list
@@ -32,21 +32,20 @@ def bubble_sort_steps(nums_string):  # main bubble sort function
     steps.append("FINISHED<br>")  # final label
     steps.append(f"FINAL LIST: {a}")  # final sorted result
 
-    return "".join(steps)  # return all lines joined as HTML
+    return "".join(steps)  # [AI] return all lines joined as HTML
 
 def generate_random_list(length, max_value):  # function to create random list
-    lst = [random.randint(0, max_value) for _ in range(length)]  # build list of random numbers
-    return ", ".join(str(x) for x in lst)  # return as comma-separated string
+    lst = [random.randint(0, max_value) for _ in range(length)]  # [AI] build list of random numbers
+    return ", ".join(str(x) for x in lst)  # [AI] return as comma-separated string
 
 
-# --- UI components ---
 
-input_numbers = gr.Textbox(  # text input for bubble sort
+input_numbers = gr.Textbox(  # type input for bubble sort
     label="Enter numbers separated by commas",
     placeholder="Example: 5, 2, 7, 3"
 )
 
-output_text = gr.Markdown()  # markdown output (clean, no flag button)
+output_text = gr.Markdown()  # [AI] markdown output
 
 length_slider = gr.Slider(  # choose length of random list
     minimum=1,
@@ -61,18 +60,18 @@ range_slider = gr.Slider(  # choose max value for random numbers
     maximum=1000,
     step=1,
     value=100,
-    label="Max Number Value (0 to N)"
+    label="Max Number Value (0 to 1000)"
 )
 
 generate_button = gr.Button("Generate Random List")  # button that creates list
 
 
-# --- Build the interface ---
+
 
 app = gr.Blocks()  # using Blocks so we can layout components
 
 with app:
-    gr.Markdown("## Bubble Sort Visualizer")  # title
+    gr.Markdown("## Bubble Sort Visualizer")  #title
     gr.Markdown("Shows bubble sort step-by-step in a clear format.")  # description
 
     with gr.Row():  # row for the random list controls
@@ -96,7 +95,7 @@ with app:
         outputs=output_text  # show steps
     )
 
-    output_text.render()  # final output
+    output_text.render()  #output
 
 
 app.launch(inbrowser=True)  # open in browser automatically
